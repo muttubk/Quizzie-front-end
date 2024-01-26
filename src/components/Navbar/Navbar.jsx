@@ -2,13 +2,16 @@ import React from 'react'
 import styles from './Navbar.module.css'
 
 import Logo from '../Logo/Logo'
+import { useNavigate } from 'react-router-dom'
 
 function Navbar(props) {
+    const navigate = useNavigate()
+
     const gotoDashboard = () => {
-        console.log("go to dashboard")
+        navigate('/dashboard')
     }
     const gotoAnalytics = () => {
-        console.log("go to analytics")
+        navigate('/analytics')
     }
     const gotoCreateQuiz = () => {
         console.log("go to create quiz")
