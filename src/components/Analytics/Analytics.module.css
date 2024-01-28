@@ -34,7 +34,7 @@
     padding: 0.3rem 1rem;
 }
 
-.dataRow:nth-of-type(odd){
+.dataRow:nth-of-type(even){
     background-color: #B3C4FF;
 }
 

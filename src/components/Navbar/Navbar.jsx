@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Navbar.module.css'
 
 import Logo from '../Logo/Logo'
 import { useNavigate } from 'react-router-dom'
+import CreateQuizPage from '../../pages/CreateQuiz/CreateQuizPage'
 
 function Navbar(props) {
     const navigate = useNavigate()
+
+    // for show/hide create quiz popup
+    const [showCreateQuizPopup, setShowCreateQuizPopup] = useState(false)
 
     const gotoDashboard = () => {
         navigate('/dashboard')
@@ -14,38 +18,44 @@ function Navbar(props) {
         navigate('/analytics')
     }
     const gotoCreateQuiz = () => {
-        console.log("go to create quiz")
+        setShowCreateQuizPopup(true)
     }
     const handleLogout = () => {
         console.log("handle logout")
     }
     return (
-        <div className={styles.container}>
-            <Logo size='3.5rem' />
-            <div className={styles.menuOptions}>
-                <button className={styles.dashboardBtn}
-                    style={{ boxShadow: props.page === 'dashboard' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
-                    onClick={gotoDashboard}>
-                    Dashboard
-                </button>
-                <button className={styles.analyticsBtn}
-                    style={{ boxShadow: props.page === 'analytics' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
-                    onClick={gotoAnalytics}>
-                    Analytics
-                </button>
-                <button className={styles.createQuizBtn}
-                    style={{ boxShadow: props.page === 'createQuiz' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
-                    onClick={gotoCreateQuiz}>
-                    Create Quiz
-                </button>
+        <>
+            <div className={styles.container}>
+                <Logo size='3.5rem' />
+                <div className={styles.menuOptions}>
+                    <button className={styles.dashboardBtn}
+                        style={{ boxShadow: props.page === 'dashboard' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
+                        onClick={gotoDashboard}>
+                        Dashboard
+                    </button>
+                    <button className={styles.analyticsBtn}
+                        style={{ boxShadow: props.page === 'analytics' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
+                        onClick={gotoAnalytics}>
+                        Analytics
+                    </button>
+                    <button className={styles.createQuizBtn}
+                        style={{ boxShadow: props.page === 'createQuiz' && "0px 0px 14px 0px rgba(0, 0, 0, 0.12)" }}
+                        onClick={gotoCreateQuiz}>
+                        Create Quiz
+                    </button>
+                </div>
+                <div className={styles.logoutBtnContainer}>
+                    <button className={styles.logoutBtn}
+                        onClick={handleLogout}>
+                        LOGOUT
+                    </button>
+                </div>
             </div>
-            <div className={styles.logoutBtnContainer}>
-                <button className={styles.logoutBtn}
-                    onClick={handleLogout}>
-                    LOGOUT
-                </button>
-            </div>
-        </div>
+            {
+                showCreateQuizPopup &&
+                <CreateQuizPage showCreateQuizPopup={setShowCreateQuizPopup} />
+            }
+        </>
     )
 }
 
