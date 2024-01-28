@@ -9,7 +9,7 @@ function Navbar(props) {
     const navigate = useNavigate()
 
     // for show/hide create quiz popup
-    const [showCreateQuizPopup, setShowCreateQuizPopup] = useState(false)
+    const [createQuizPage, setCreateQuizPage] = useState(false)
 
     const gotoDashboard = () => {
         navigate('/dashboard')
@@ -18,7 +18,7 @@ function Navbar(props) {
         navigate('/analytics')
     }
     const gotoCreateQuiz = () => {
-        setShowCreateQuizPopup(true)
+        setCreateQuizPage(true)
     }
     const handleLogout = () => {
         console.log("handle logout")
@@ -52,8 +52,8 @@ function Navbar(props) {
                 </div>
             </div>
             {
-                showCreateQuizPopup &&
-                <CreateQuizPage showCreateQuizPopup={setShowCreateQuizPopup} />
+                createQuizPage &&
+                <CreateQuizPage setCreateQuizPage={setCreateQuizPage} />
             }
         </>
     )

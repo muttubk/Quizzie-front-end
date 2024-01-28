@@ -172,7 +172,7 @@ function CreateQuestion(props) {
 
     // handle cancel button
     const handleCancel = () => {
-        props.showQuestionsPopup(false)
+        props.setQuestionsPopup(false)
     }
 
     const [error, setError] = useState({
@@ -219,6 +219,9 @@ function CreateQuestion(props) {
         }
         if (valid) {
             console.log(formData)
+            props.setQuestionsPopup(false)
+            props.setQuizPublishedPopup(true)
+            props.setQuizLink("quiz link")
         } else {
             console.log('error')
         }

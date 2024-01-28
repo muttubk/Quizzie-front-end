@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './CreateQuiz.module.css'
 import CreateQuestion from '../CreateQuestion/CreateQuestion'
+import QuizPublished from '../QuizPublished/QuizPublished'
 
 const selectedQuizTypeStyle = {
     background: "#60B84B",
@@ -19,10 +20,14 @@ function CreateQuiz(props) {
 
     // for show/hide create question pop up
     const [questionsPopup, setQuestionsPopup] = useState(false)
+    // show/hide quiz published popup
+    const [quizPublishedPopup, setQuizPublishedPopup] = useState(false)
+    // for quiz link
+    const [quizLink, setQuizLink] = useState('')
 
     // hide create quiz popup
     const handleCancel = () => {
-        props.showCreateQuizPopup(false)
+        props.setCreateQuizPage(false)
     }
 
     // show create question popup
@@ -68,7 +73,7 @@ function CreateQuiz(props) {
                     </button>
                     {
                         error && !quizData.quizType &&
-                        <small className={styles.errorMessage} style={{position:"absolute", bottom:"-15px"}}>Quiz type required</small>
+                        <small className={styles.errorMessage} style={{ position: "absolute", bottom: "-15px" }}>Quiz type required</small>
                     }
                 </div>
                 <div className={styles.cancelContinueBtns}>
@@ -81,10 +86,19 @@ function CreateQuiz(props) {
             {
                 questionsPopup &&
                 <CreateQuestion
-                    showQuestionsPopup={setQuestionsPopup}
+                    setQuestionsPopup={setQuestionsPopup}
                     // quizName={quizData.quizName}
                     // quizType={quizData.quizType}
                     {...quizData}
+                    setQuizPublishedPopup={setQuizPublishedPopup}
+                    setQuizLink={setQuizLink}
+                />
+            }
+            {
+                quizPublishedPopup &&
+                <QuizPublished
+                    setCreateQuizPage={props.setCreateQuizPage}
+                    quizLink={quizLink}
                 />
             }
         </>
