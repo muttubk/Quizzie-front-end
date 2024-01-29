@@ -5,6 +5,8 @@ import LoginSignupPage from './pages/LoginSigup/LoginSignupPage'
 import DashboardPage from './pages/Dashboard/DashboardPage'
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import QuizInterfacePage from './pages/QuizInterface/QuizInterfacePage';
+import QuestionAnalysis from './components/QuestionAnalysis/QuestionAnalysis';
+import Analytics from './components/Analytics/Analytics';
 
 function App() {
   return (
@@ -13,7 +15,10 @@ function App() {
         <Routes>
           <Route path='/' element={<LoginSignupPage />} />
           <Route path='/dashboard' element={<DashboardPage />} />
-          <Route path='/analytics' element={<AnalyticsPage />} />
+          <Route path='/analytics' element={<AnalyticsPage />} >
+            <Route path='' element={<Analytics />} />
+            <Route path=':id' element={<QuestionAnalysis />} />
+          </Route>
           <Route path='/quiz-interface' element={<QuizInterfacePage />} />
         </Routes>
       </BrowserRouter>
