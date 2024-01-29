@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Dashboard.module.css'
+import TrendingQuizCard from '../TrendingQuizCard/TrendingQuizCard'
 
 function Dashboard() {
     return (
@@ -18,27 +19,16 @@ function Dashboard() {
             <div className={styles.trendingQuizsContainer}>
                 <p className={styles.trendingQuizsTitle}>Trending Quizs</p>
                 <div className={styles.trendingQuizs}>
-                    <div className={styles.quizCard}>Quiz 1</div>
-                    <div className={styles.quizCard}>Quiz 2</div>
-                    <div className={styles.quizCard}>Quiz 3</div>
-                    <div className={styles.quizCard}>Quiz 4</div>
-                    <div className={styles.quizCard}>Quiz 5</div>
-                    <div className={styles.quizCard}>Quiz 6</div>
-                    <div className={styles.quizCard}>Quiz 7</div>
-                    <div className={styles.quizCard}>Quiz 1</div>
-                    <div className={styles.quizCard}>Quiz 2</div>
-                    <div className={styles.quizCard}>Quiz 3</div>
-                    <div className={styles.quizCard}>Quiz 4</div>
-                    <div className={styles.quizCard}>Quiz 5</div>
-                    <div className={styles.quizCard}>Quiz 6</div>
-                    <div className={styles.quizCard}>Quiz 7</div>
-                    <div className={styles.quizCard}>Quiz 1</div>
-                    <div className={styles.quizCard}>Quiz 2</div>
-                    <div className={styles.quizCard}>Quiz 3</div>
-                    <div className={styles.quizCard}>Quiz 4</div>
-                    <div className={styles.quizCard}>Quiz 5</div>
-                    <div className={styles.quizCard}>Quiz 6</div>
-                    <div className={styles.quizCard}>Quiz 7</div>
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
+                    <TrendingQuizCard quizName="Quiz 1" impressions="667" createdDate="23 Sep, 2023" />
                 </div>
             </div>
         </div>

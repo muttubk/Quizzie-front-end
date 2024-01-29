@@ -6,7 +6,7 @@
 }
 
 .analyticsContainer{
-    flex-grow: 1;
+    width: calc(100% - 12rem);
     padding: 3.5rem;
     overflow-y: scroll;
 }
