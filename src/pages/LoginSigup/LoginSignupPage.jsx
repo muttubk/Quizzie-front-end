@@ -1,11 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './LoginSignupPage.module.css'
 
 import Logo from '../../components/Logo/Logo'
 import LoginSignup from '../../components/LoginSignup/LoginSignup'
+import { useNavigate } from 'react-router-dom'
 
 function LoginSignupPage() {
     const [activeButton, setActiveButton] = useState('signup')
+    const navigate = useNavigate()
+    const [loggedIn] = useState(localStorage.getItem("token"))
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate('/dashboard')
+        }
+    }, [navigate, loggedIn])
+
     return (
         <div className={styles.container}>
             <div className={styles.formsContainer}>
@@ -26,7 +36,7 @@ function LoginSignupPage() {
                 </div>
                 {
                     activeButton === 'signup' ?
-                        <LoginSignup type="signup" /> : <LoginSignup type="login" />
+                        <LoginSignup type="signup" setActiveButton={setActiveButton} /> : <LoginSignup type="login" />
                 }
             </div>
         </div>

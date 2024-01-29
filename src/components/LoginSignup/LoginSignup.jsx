@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styles from './LoginSignup.module.css'
 
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Signup(props) {
     const [formData, setFormData] = useState({
@@ -77,20 +80,6 @@ function Signup(props) {
         setError(newErrors)
     }
 
-    // handle signup
-    const handleSignup = (e) => {
-        e.preventDefault();
-        const fields = ["name", "email", "password", "confirmPassword"]
-        validateFields(fields);
-        let isValid = fields.every(field => error[field] === '')
-        if (isValid) {
-            console.log(formData)
-            navigate('/dashboard')
-        } else {
-            console.log(error)
-        }
-    }
-
     // For real-time validation of corresponding field
     // const handleBlur = (e) => {
     //     const { name } = e.target
@@ -99,13 +88,40 @@ function Signup(props) {
     //     })
     // }
 
-    const handleLogin = (e) => {
+    // handle signup
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        const fields = ["name", "email", "password", "confirmPassword"]
+        validateFields(fields);
+        let isValid = fields.every(field => error[field] === '')
+        if (isValid) {
+            try {
+                const res = await axios.post("http://localhost:5000/user/register", formData)
+                props.setActiveButton('login')
+                toast.success("Registered successfully")
+            } catch (error) {
+                toast.error(error.response.data.error)
+            }
+        } else {
+            console.log(error)
+        }
+    }
+
+    const handleLogin = async (e) => {
         e.preventDefault()
         const fields = ["email", "password"]
         validateFields(fields)
         let isValid = fields.every(field => error[field] === '')
         if (isValid) {
-            console.log(formData.email, formData.password)
+            try {
+                const res = await axios.post("http://localhost:5000/user/login", formData)
+                localStorage.setItem("token", res.data.jwtoken)
+                localStorage.setItem("userId", res.data.userId)
+                navigate('/dashboard')
+                toast.success("Logged in successfully")
+            } catch (error) {
+                toast.error(error.response.data.error)
+            }
         } else {
             console.log(error)
         }
@@ -181,6 +197,7 @@ function Signup(props) {
                     <button className={styles.loginBtn} onClick={handleLogin}>Log In</button>
                 }
             </form>
+            <ToastContainer />
         </div>
     )
 }

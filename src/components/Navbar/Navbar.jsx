@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Navbar.module.css'
 
 import Logo from '../Logo/Logo'
@@ -11,6 +11,13 @@ function Navbar(props) {
     // for show/hide create quiz popup
     const [createQuizPage, setCreateQuizPage] = useState(false)
 
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem("token"))
+    useEffect(() => {
+        if (!loggedIn) {
+            navigate('/')
+        }
+    }, [navigate, loggedIn])
+
     const gotoDashboard = () => {
         navigate('/dashboard')
     }
@@ -22,6 +29,9 @@ function Navbar(props) {
     }
     const handleLogout = () => {
         console.log("handle logout")
+        localStorage.removeItem("token")
+        localStorage.removeItem("userId")
+        setLoggedIn(false)
     }
     return (
         <>
