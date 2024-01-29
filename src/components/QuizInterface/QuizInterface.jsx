@@ -5,12 +5,12 @@ import cx from 'classnames'
 import QuizScoreCard from '../QuizScoreCard/QuizScoreCard'
 
 function QuizInterface() {
-    const quizType = "QnA"
-    const timer = 10
+    const quizType = "Poll"
+    const timer = "OFF"
     const questions = [
         {
             id: 'q1',
-            question: 'Question 1',
+            question: 'Your question text comes here, its a sample text.',
             optionsType: 'image',
             options: {
                 option1: {
@@ -59,6 +59,10 @@ function QuizInterface() {
                 },
                 option3: {
                     text: 'option 3',
+                    imageURL: ''
+                },
+                option4: {
+                    text: 'option 4',
                     imageURL: ''
                 }
             },
@@ -128,7 +132,10 @@ function QuizInterface() {
                         <p className={styles.questionNumber}>
                             {currentQuestion + 1}/{questions.length}
                         </p>
-                        <p className={styles.time}>00:{remainingSeconds}</p>
+                        {
+                            (!timer || timer !== "OFF") &&
+                            <p className={styles.time}>00:{remainingSeconds}</p>
+                        }
                     </div>
                     <p className={styles.question}>
                         {questions[currentQuestion].question}
