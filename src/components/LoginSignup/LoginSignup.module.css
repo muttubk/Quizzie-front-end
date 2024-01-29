@@ -32,10 +32,18 @@
     padding: 0.3rem;
     outline: none;
 }
-.form input::placeholder{
+/* .form input::placeholder{
     color: #D60000;
     font-size: 0.7rem;
     font-weight: 500;
+} */
+.errorMessage{
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #D60000;
+    position: absolute;
+    bottom: -1.2rem;
+    right: 0;
 }
 
 .signupBtn, .loginBtn{
