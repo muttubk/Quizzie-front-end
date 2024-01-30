@@ -4,6 +4,8 @@ import styles from './TrendingQuizCard.module.css'
 import eyesIcon from '../../assets/images/eyes.svg'
 
 function TrendingQuizCard(props) {
+    const createdDate = new Date(props.createdDate)
+
     return (
         <div className={styles.container}>
             <div className={styles.nameAndImpressionContainer}>
@@ -18,7 +20,13 @@ function TrendingQuizCard(props) {
                 </div>
             </div>
             <p className={styles.createdDate}>
-                Created on : {props.createdDate}
+                Created on : {
+                    createdDate.getDate()
+                    + " "
+                    + createdDate.toLocaleString('en-US', { month: "short" })
+                    + ", "
+                    + createdDate.getFullYear()
+                }
             </p>
         </div>
     )
