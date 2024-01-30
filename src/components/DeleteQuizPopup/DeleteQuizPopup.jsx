@@ -1,12 +1,23 @@
 import React from 'react'
 import styles from './DeleteQuizPopup.module.css'
 
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function DeleteQuizPopup(props) {
-    const handleDeleteQuiz = () => {
-        console.log("delete quiz")
+    const handleDeleteQuiz = async () => {
+        try {
+            const response = await axios.delete(`http://localhost:5000/quiz/${props.quizId}`)
+            // console.log(response)
+            toast.success("Deleted quiz successfully")
+            props.setDeletePopup(false)
+        } catch (error) {
+            console.log(error)
+        }
     }
     const handleCancel = () => {
-        props.show(false)
+        props.setDeletePopup(false)
     }
     return (
         <div className={styles.container}>
@@ -21,6 +32,7 @@ function DeleteQuizPopup(props) {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }
