@@ -25,15 +25,15 @@ function Timer({ setTimer }) {
             </button>
             <button className={styles.timer5sec}
                 onClick={handleTimer}
-                value="5 sec"
-                style={state === '5 sec' ? selectedTimerStyle : {}}
+                value="5"
+                style={state === '5' ? selectedTimerStyle : {}}
             >
                 5 sec
             </button>
             <button className={styles.timer10sec}
                 onClick={handleTimer}
-                value="10 sec"
-                style={state === '10 sec' ? selectedTimerStyle : {}}
+                value="10"
+                style={state === '10' ? selectedTimerStyle : {}}
             >
                 10 sec
             </button>

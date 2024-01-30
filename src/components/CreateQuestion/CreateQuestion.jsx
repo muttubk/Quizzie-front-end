@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styles from './CreateQuestion.module.css'
 import { v4 as uuidv4 } from 'uuid'
 import cx from 'classnames'
+import axios from 'axios'
 
 import deleteIcon from '../../assets/images/delete.svg'
 import Timer from '../../components/Timer/Timer'
@@ -181,10 +182,10 @@ function CreateQuestion(props) {
     const validateOptions = (type, options) => {
         let validTextOptions = true
         let validImageOptions = true
-        if (type === 'text' || type === 'textAndImage') {
+        if (type === 'text' || type === 'textAndImageURL') {
             validTextOptions = Object.keys(options).every(option => options[option].text.length !== 0)
         }
-        if (type === 'image' || type === 'textAndImage') {
+        if (type === 'imageURL' || type === 'textAndImageURL') {
             validImageOptions = Object.keys(options).every(option => options[option].imageURL.length !== 0)
         }
         return validTextOptions && validImageOptions
@@ -207,21 +208,35 @@ function CreateQuestion(props) {
             return true
         }
     }
-    const handleCreateQuiz = () => {
+    const handleCreateQuiz = async () => {
         // const valid = questions.every(question => validateQuestion(question))
         let valid = true
-        questions.forEach(question => { valid = validateQuestion(question) })
+        questions.forEach(question => {
+            if (valid === true) {
+                valid = validateQuestion(question)
+            } else {
+                validateQuestion(question)
+            }
+        })
+        const createdBy = localStorage.getItem("user")
         const formData = {
             quizName: props.quizName,
             quizType: props.quizType,
             questions,
-            timer
+            timer,
+            createdBy
         }
         if (valid) {
-            console.log(formData)
-            props.setQuestionsPopup(false)
-            props.setQuizPublishedPopup(true)
-            props.setQuizLink("quiz link")
+            try {
+                const response = await axios.post("http://localhost:5000/quiz/create", formData)
+                // console.log(response)
+                props.setQuestionsPopup(false)
+                props.setQuizPublishedPopup(true)
+                props.setQuizLink(`http://localhost:3000/quiz-interface/${response.data.id}`)
+            } catch (error) {
+                console.log("Error creating quiz")
+                console.log(error)
+            }
         } else {
             console.log('error')
         }
@@ -282,17 +297,17 @@ function CreateQuestion(props) {
                         checked={questions.find(q => q.id === selectedQuestion).optionsType === "text"}
                         name="questionType" id="text" /> Text
                 </label>
-                <label htmlFor="image">
-                    <input type="radio" value="image"
+                <label htmlFor="imageURL">
+                    <input type="radio" value="imageURL"
                         onChange={handleOptionsType}
-                        checked={questions.find(q => q.id === selectedQuestion).optionsType === "image"}
-                        name="questionType" id="image" /> Image URL
+                        checked={questions.find(q => q.id === selectedQuestion).optionsType === "imageURL"}
+                        name="questionType" id="imageURL" /> Image URL
                 </label>
-                <label htmlFor="textAndImage">
-                    <input type="radio" value="textAndImage"
+                <label htmlFor="textAndImageURL">
+                    <input type="radio" value="textAndImageURL"
                         onChange={handleOptionsType}
-                        checked={questions.find(q => q.id === selectedQuestion).optionsType === "textAndImage"}
-                        name="questionType" id="textAndImage" /> Text & Image URL
+                        checked={questions.find(q => q.id === selectedQuestion).optionsType === "textAndImageURL"}
+                        name="questionType" id="textAndImageURL" /> Text & Image URL
                 </label>
             </div>
             <div className={styles.optionAndTimerContainer}>
@@ -319,7 +334,7 @@ function CreateQuestion(props) {
                                 }
                                 {
                                     (questions.find(q => q.id === selectedQuestion).optionsType === "text" ||
-                                        questions.find(q => q.id === selectedQuestion).optionsType === "textAndImage") &&
+                                        questions.find(q => q.id === selectedQuestion).optionsType === "textAndImageURL") &&
                                     <input type="text"
                                         className={cx(
                                             styles.optionInput,
@@ -336,8 +351,8 @@ function CreateQuestion(props) {
                                     />
                                 }
                                 {
-                                    (questions.find(q => q.id === selectedQuestion).optionsType === "image" ||
-                                        questions.find(q => q.id === selectedQuestion).optionsType === "textAndImage") &&
+                                    (questions.find(q => q.id === selectedQuestion).optionsType === "imageURL" ||
+                                        questions.find(q => q.id === selectedQuestion).optionsType === "textAndImageURL") &&
                                     <input type="text"
                                         className={cx(
                                             styles.optionInput,

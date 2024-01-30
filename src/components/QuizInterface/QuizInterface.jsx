@@ -143,6 +143,8 @@ function QuizInterface() {
                     <div className={styles.optionsContainer}>
                         {
                             Object.keys(questions[currentQuestion].options).map((option) => (
+                                (questions[currentQuestion].options[option].text ||
+                                    questions[currentQuestion].options[option].imageURL) &&
                                 <div className={cx(
                                     styles.option,
                                     questions[currentQuestion].optionsType === "textAndImage" && styles.textAndImage,

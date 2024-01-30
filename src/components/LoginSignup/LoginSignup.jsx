@@ -116,7 +116,7 @@ function Signup(props) {
             try {
                 const res = await axios.post("http://localhost:5000/user/login", formData)
                 localStorage.setItem("token", res.data.jwtoken)
-                localStorage.setItem("userId", res.data.userId)
+                localStorage.setItem("user", res.data.user)
                 navigate('/dashboard')
                 toast.success("Logged in successfully")
             } catch (error) {
