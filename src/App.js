@@ -19,7 +19,7 @@ function App() {
             <Route path='' element={<Analytics />} />
             <Route path=':id' element={<QuestionAnalysis />} />
           </Route>
-          <Route path='/quiz-interface' element={<QuizInterfacePage />} />
+          <Route path='/quiz-interface/:id' element={<QuizInterfacePage />} />
         </Routes>
       </BrowserRouter>
     </>
