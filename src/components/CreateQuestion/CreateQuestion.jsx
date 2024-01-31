@@ -113,13 +113,29 @@ function CreateQuestion(props) {
         setQuestions(newQuestions)
     }
 
+    const handleChangedOptionType = (options, type) => {
+        let newOptions = { ...options }
+        Object.keys(options).forEach(option => {
+            if (option !== "_id") {
+                if (type === "text") {
+                    newOptions[option].imageURL = ""
+                } else if (type === "imageURL") {
+                    newOptions[option].text = ""
+                }
+            }
+        })
+        // console.log(newOptions)
+        return newOptions
+    }
+
     // options type
     const handleOptionsType = (e) => {
         const newQuestions = questions.map((question) => (
             question.id === selectedQuestion ?
                 {
                     ...question,
-                    optionsType: e.target.value
+                    optionsType: e.target.value,
+                    options: handleChangedOptionType(question.options, e.target.value)
                 }
                 : question
         ))
