@@ -292,7 +292,7 @@ function CreateQuestion(props) {
                     }
                 )
                 setQuizPublishedPopup(true)
-                setQuizLink(`http://localhost:3000/quiz-interface/${response.data.updatedQuiz._id}`)
+                setQuizLink(`${window.location.origin}/quiz-interface/${response.data.updatedQuiz._id}`)
             } catch (error) {
                 console.log(error)
             }
@@ -304,7 +304,7 @@ function CreateQuestion(props) {
                     }
                 })
                 setQuizPublishedPopup(true)
-                setQuizLink(`http://localhost:3000/quiz-interface/${response.data.id}`)
+                setQuizLink(`${window.location.origin}/quiz-interface/${response.data.id}`)
             } catch (error) {
                 console.log(error)
             }

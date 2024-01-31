@@ -46,7 +46,7 @@ function Analytics() {
         setSelectedQuiz(e.target.id)
     }
     const handleShareQuiz = async (e) => {
-        const quizLink = `http://localhost:3000/quiz-interface/${e.target.id}`
+        const quizLink = `${window.location.origin}/quiz-interface/${e.target.id}`
         try {
             await navigator.clipboard.writeText(quizLink)
             toast.success("Link copied to Clipboard");
