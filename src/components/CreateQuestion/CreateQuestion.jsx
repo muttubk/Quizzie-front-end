@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styles from './CreateQuestion.module.css'
 import { v4 as uuidv4 } from 'uuid'
 import cx from 'classnames'
-// import axios from 'axios'
 
 import deleteIcon from '../../assets/images/delete.svg'
 import Timer from '../../components/Timer/Timer'
@@ -47,24 +46,23 @@ function CreateQuestion(props) {
     const [quizPublishedPopup, setQuizPublishedPopup] = useState(false)
     // for quiz link
     const [quizLink, setQuizLink] = useState('')
+    // for errors
+    const [error, setError] = useState({
+        'first-question': false
+    })
 
+    // for complete quiz details
     const [quiz, setQuiz] = useState('')
+    // for fetching details of editing quiz
     useEffect(() => {
         if (props.editQuizId) {
             (async () => {
                 try {
-                    // const response = await axios.get(`http://localhost:5000/quiz/analysis/${props.editQuizId}`, {
-                    //     headers: {
-                    //         'createdby': localStorage.getItem("user")
-                    //     }
-                    // })
                     const response = await quizApi.getQuizData(props.editQuizId, {
                         headers: {
-                            // 'createdby': localStorage.getItem("user"),
                             'Authorization': localStorage.getItem("token")
                         }
                     })
-                    console.log(response)
                     setQuiz(response.data.quiz)
                 } catch (error) {
                     console.log(error)
@@ -103,7 +101,6 @@ function CreateQuestion(props) {
 
     // select question
     const handleSelectQuestion = (e) => {
-        // setSelectedQuestion(questions.find(q => q.id === e.target.id))
         setSelectedQuestion(e.target.id)
     }
 
@@ -120,6 +117,7 @@ function CreateQuestion(props) {
         setQuestions(newQuestions)
     }
 
+    // for handling options on options type change
     const handleChangedOptionType = (options, type) => {
         let newOptions = { ...options }
         Object.keys(options).forEach(option => {
@@ -131,7 +129,6 @@ function CreateQuestion(props) {
                 }
             }
         })
-        // console.log(newOptions)
         return newOptions
     }
 
@@ -152,7 +149,7 @@ function CreateQuestion(props) {
     // add option
     const handleAddOption = (e) => {
         const prevOptions = questions.find((q) => q.id === selectedQuestion).options
-        const newOption = `option${Object.keys(prevOptions).length + (props.editQuizId ? 0 : 1)}`
+        const newOption = `option${Object.keys(prevOptions).filter(option => option !== "_id").length + 1}`
         const newQuestions = questions.map((question) => (
             question.id === selectedQuestion ?
                 {
@@ -173,7 +170,7 @@ function CreateQuestion(props) {
     // handle delete option
     const handleDeleteOption = (e) => {
         const options = questions.find((q) => q.id === selectedQuestion).options
-        if (e.target.id === 'option3' && Object.keys(options).length === (props.editQuizId ? 5 : 4)) {
+        if (e.target.id === 'option3' && Object.keys(options).filter(option => option !== "_id").length === 4) {
             const option4Value = { ...options.option4 }
             options.option3 = option4Value
             delete options.option4
@@ -234,9 +231,7 @@ function CreateQuestion(props) {
         }
     }
 
-    const [error, setError] = useState({
-        'first-question': false
-    })
+    // for validating each questions options
     const validateOptions = (type, options) => {
         let validTextOptions = true
         let validImageOptions = true
@@ -248,6 +243,7 @@ function CreateQuestion(props) {
         }
         return validTextOptions && validImageOptions
     }
+    // for validating each question
     const validateQuestion = (question) => {
         if (!question.question
             || (!question.correctAnswer && (props.quizType || quiz.quizType) === "QnA")
@@ -266,8 +262,9 @@ function CreateQuestion(props) {
             return true
         }
     }
+
+    // for handling quiz creation and quiz edit/update
     const handleCreateQuiz = async () => {
-        // const valid = questions.every(question => validateQuestion(question))
         let valid = true
         questions.forEach(question => {
             if (valid === true) {
@@ -285,24 +282,15 @@ function CreateQuestion(props) {
             createdBy
         }
         if (valid && props.editQuizId) {
-            console.log("Updated quiz")
-            console.log(formData)
             try {
-                // const response = await axios.patch(`http://localhost:5000/quiz/${props.editQuizId}`,
-                //     { questions, timer },
-                //     { headers: { 'createdby': createdBy } }
-                // )
                 const response = await quizApi.updateQuiz(props.editQuizId,
                     { questions, timer },
                     {
                         headers: {
-                            // 'createdby': createdBy,
                             'Authorization': localStorage.getItem("token")
                         }
                     }
                 )
-                console.log(response.data)
-                // props.setEditQuizPopup(false)
                 setQuizPublishedPopup(true)
                 setQuizLink(`http://localhost:3000/quiz-interface/${response.data.updatedQuiz._id}`)
             } catch (error) {
@@ -310,18 +298,14 @@ function CreateQuestion(props) {
             }
         } else if (valid) {
             try {
-                // const response = await axios.post("http://localhost:5000/quiz/create", formData)
                 const response = await quizApi.createQuiz(formData, {
                     headers: {
                         'Authorization': localStorage.getItem("token")
                     }
                 })
-                // console.log(response)
-                // props.setQuestionsPopup(false)
                 setQuizPublishedPopup(true)
                 setQuizLink(`http://localhost:3000/quiz-interface/${response.data.id}`)
             } catch (error) {
-                console.log("Error creating quiz")
                 console.log(error)
             }
         } else {
@@ -471,7 +455,7 @@ function CreateQuestion(props) {
                                 ))
                             }
                             {
-                                Object.keys(questions.find(q => q.id === selectedQuestion).options).length < (props.editQuizId ? 5 : 4) &&
+                                Object.keys(questions.find(q => q.id === selectedQuestion).options).filter(option => option !== "_id").length < 4 &&
                                 <button className={styles.addOptionBtn} onClick={handleAddOption}>Add option</button>
                             }
                         </div>

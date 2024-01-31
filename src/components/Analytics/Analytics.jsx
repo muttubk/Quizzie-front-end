@@ -7,7 +7,6 @@ import shareIcon from '../../assets/images/share.svg'
 
 import { Link } from 'react-router-dom'
 import DeleteQuizPopup from '../DeleteQuizPopup/DeleteQuizPopup'
-// import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CreateQuestion from '../CreateQuestion/CreateQuestion'
@@ -26,14 +25,8 @@ function Analytics() {
     useEffect(() => {
         (async () => {
             try {
-                // const response = await axios.get("http://localhost:5000/quiz", {
-                //     headers: {
-                //         'createdby': user
-                //     }
-                // })
                 const response = await quizApi.getQuizs({
                     headers: {
-                        // 'createdby': user,
                         'Authorization': localStorage.getItem("token")
                     }
                 })
@@ -45,7 +38,6 @@ function Analytics() {
     }, [user, deletePopup])
 
     const handleEditQuiz = (e) => {
-        // console.log("edit quiz")
         setEditQuizId(e.target.id)
         setEditQuizPopup(true)
     }
