@@ -33,7 +33,8 @@ function Analytics() {
                 // })
                 const response = await quizApi.getQuizs({
                     headers: {
-                        'createdby': user
+                        // 'createdby': user,
+                        'Authorization': localStorage.getItem("token")
                     }
                 })
                 setQuizs(response.data.quizs)

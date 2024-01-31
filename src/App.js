@@ -7,6 +7,7 @@ import AnalyticsPage from './pages/Analytics/AnalyticsPage';
 import QuizInterfacePage from './pages/QuizInterface/QuizInterfacePage';
 import QuestionAnalysis from './components/QuestionAnalysis/QuestionAnalysis';
 import Analytics from './components/Analytics/Analytics';
+import Error404 from './pages/Error404/Error404';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path=':id' element={<QuestionAnalysis />} />
           </Route>
           <Route path='/quiz-interface/:id' element={<QuizInterfacePage />} />
+          <Route path='*' element={<Error404 />} />
         </Routes>
       </BrowserRouter>
     </>

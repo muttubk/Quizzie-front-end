@@ -60,7 +60,8 @@ function CreateQuestion(props) {
                     // })
                     const response = await quizApi.getQuizData(props.editQuizId, {
                         headers: {
-                            'createdby': localStorage.getItem("user")
+                            // 'createdby': localStorage.getItem("user"),
+                            'Authorization': localStorage.getItem("token")
                         }
                     })
                     console.log(response)
@@ -293,7 +294,12 @@ function CreateQuestion(props) {
                 // )
                 const response = await quizApi.updateQuiz(props.editQuizId,
                     { questions, timer },
-                    { headers: { 'createdby': createdBy } }
+                    {
+                        headers: {
+                            // 'createdby': createdBy,
+                            'Authorization': localStorage.getItem("token")
+                        }
+                    }
                 )
                 console.log(response.data)
                 // props.setEditQuizPopup(false)
@@ -305,7 +311,11 @@ function CreateQuestion(props) {
         } else if (valid) {
             try {
                 // const response = await axios.post("http://localhost:5000/quiz/create", formData)
-                const response = await quizApi.createQuiz(formData)
+                const response = await quizApi.createQuiz(formData, {
+                    headers: {
+                        'Authorization': localStorage.getItem("token")
+                    }
+                })
                 // console.log(response)
                 // props.setQuestionsPopup(false)
                 setQuizPublishedPopup(true)

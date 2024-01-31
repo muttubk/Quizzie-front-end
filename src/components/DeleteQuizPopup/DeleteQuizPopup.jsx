@@ -10,7 +10,11 @@ function DeleteQuizPopup(props) {
     const handleDeleteQuiz = async () => {
         try {
             // const response = await axios.delete(`http://localhost:5000/quiz/${props.quizId}`)
-            const response = await quizApi.deleteQuiz(props.quizId)
+            const response = await quizApi.deleteQuiz(props.quizId, {
+                headers: {
+                    'Authorization': localStorage.getItem("token")
+                }
+            })
             // console.log(response)
             toast.success("Deleted quiz successfully")
             props.setDeletePopup(false)

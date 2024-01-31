@@ -20,7 +20,8 @@ function QuestionAnalysis() {
                 // })
                 const response = await quizApi.getQuizData(id, {
                     headers: {
-                        'createdby': user
+                        // 'createdby': user,
+                        'Authorization': localStorage.getItem("token")
                     }
                 })
                 console.log(response)

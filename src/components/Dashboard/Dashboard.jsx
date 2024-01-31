@@ -24,7 +24,8 @@ function Dashboard() {
                 // })
                 const response = await quizApi.getQuizs({
                     headers: {
-                        'createdby': user,
+                        // 'createdby': user,
+                        'Authorization': localStorage.getItem("token"),
                         'sortcondition': JSON.stringify(sortCondition)
                     }
                 })
