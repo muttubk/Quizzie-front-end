@@ -1,5 +1,5 @@
 const apiConfig = {
-    baseUrl: "http://localhost:5000"
+    baseUrl: "https://quizzie-back-end.onrender.com"
 }
 
 export default apiConfig;
