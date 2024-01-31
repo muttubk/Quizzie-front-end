@@ -1,14 +1,16 @@
 import React from 'react'
 import styles from './DeleteQuizPopup.module.css'
 
-import axios from 'axios'
+// import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import quizApi from '../../api/quizApi';
 
 function DeleteQuizPopup(props) {
     const handleDeleteQuiz = async () => {
         try {
-            const response = await axios.delete(`http://localhost:5000/quiz/${props.quizId}`)
+            // const response = await axios.delete(`http://localhost:5000/quiz/${props.quizId}`)
+            const response = await quizApi.deleteQuiz(props.quizId)
             // console.log(response)
             toast.success("Deleted quiz successfully")
             props.setDeletePopup(false)

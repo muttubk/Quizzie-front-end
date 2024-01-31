@@ -3,8 +3,9 @@ import styles from './QuizInterface.module.css'
 
 import cx from 'classnames'
 import QuizScoreCard from '../QuizScoreCard/QuizScoreCard'
-import axios from 'axios'
+// import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import quizApi from '../../api/quizApi'
 
 function QuizInterface() {
     const { id } = useParams()
@@ -15,7 +16,8 @@ function QuizInterface() {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/quiz/${id}`)
+                // const response = await axios.get(`http://localhost:5000/quiz/${id}`)
+                const response = await quizApi.getQuiz(id)
                 // console.log(response)
                 setQuizType(response.data.quizData.quizType)
                 setTimer(response.data.quizData.timer)
@@ -136,7 +138,10 @@ function QuizInterface() {
     const submitQuiz = async () => {
         // console.log(selectedAnswers)
         try {
-            const response = await axios.patch(`http://localhost:5000/quiz/submit/${id}`, {
+            // const response = await axios.patch(`http://localhost:5000/quiz/submit/${id}`, {
+            //     submittedAnswers: selectedAnswers
+            // })
+            const response = await quizApi.submitQuiz(id, {
                 submittedAnswers: selectedAnswers
             })
             // console.log(response.data)

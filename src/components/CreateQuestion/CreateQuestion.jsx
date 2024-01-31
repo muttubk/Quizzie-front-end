@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import styles from './CreateQuestion.module.css'
 import { v4 as uuidv4 } from 'uuid'
 import cx from 'classnames'
-import axios from 'axios'
+// import axios from 'axios'
 
 import deleteIcon from '../../assets/images/delete.svg'
 import Timer from '../../components/Timer/Timer'
 import QuizPublished from '../QuizPublished/QuizPublished'
+import quizApi from '../../api/quizApi'
 
 const correctOptionStyle = {
     backgroundColor: "#60B84B",
@@ -52,7 +53,12 @@ function CreateQuestion(props) {
         if (props.editQuizId) {
             (async () => {
                 try {
-                    const response = await axios.get(`http://localhost:5000/quiz/analysis/${props.editQuizId}`, {
+                    // const response = await axios.get(`http://localhost:5000/quiz/analysis/${props.editQuizId}`, {
+                    //     headers: {
+                    //         'createdby': localStorage.getItem("user")
+                    //     }
+                    // })
+                    const response = await quizApi.getQuizData(props.editQuizId, {
                         headers: {
                             'createdby': localStorage.getItem("user")
                         }
@@ -281,7 +287,11 @@ function CreateQuestion(props) {
             console.log("Updated quiz")
             console.log(formData)
             try {
-                const response = await axios.patch(`http://localhost:5000/quiz/${props.editQuizId}`,
+                // const response = await axios.patch(`http://localhost:5000/quiz/${props.editQuizId}`,
+                //     { questions, timer },
+                //     { headers: { 'createdby': createdBy } }
+                // )
+                const response = await quizApi.updateQuiz(props.editQuizId,
                     { questions, timer },
                     { headers: { 'createdby': createdBy } }
                 )
@@ -294,7 +304,8 @@ function CreateQuestion(props) {
             }
         } else if (valid) {
             try {
-                const response = await axios.post("http://localhost:5000/quiz/create", formData)
+                // const response = await axios.post("http://localhost:5000/quiz/create", formData)
+                const response = await quizApi.createQuiz(formData)
                 // console.log(response)
                 // props.setQuestionsPopup(false)
                 setQuizPublishedPopup(true)

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import styles from './QuestionAnalysis.module.css'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+// import axios from 'axios'
 import cx from 'classnames'
+import quizApi from '../../api/quizApi'
 
 function QuestionAnalysis() {
     const { id } = useParams()
@@ -12,7 +13,12 @@ function QuestionAnalysis() {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/quiz/analysis/${id}`, {
+                // const response = await axios.get(`http://localhost:5000/quiz/analysis/${id}`, {
+                //     headers: {
+                //         'createdby': user
+                //     }
+                // })
+                const response = await quizApi.getQuizData(id, {
                     headers: {
                         'createdby': user
                     }

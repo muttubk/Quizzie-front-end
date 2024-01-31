@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import styles from './LoginSignup.module.css'
 
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+// import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import authApi from '../../api/authApi';
 
 function Signup(props) {
     const [formData, setFormData] = useState({
@@ -96,7 +97,8 @@ function Signup(props) {
         let isValid = fields.every(field => error[field] === '')
         if (isValid) {
             try {
-                const res = await axios.post("http://localhost:5000/user/register", formData)
+                // const res = await axios.post("http://localhost:5000/user/register", formData)
+                await authApi.registerUser(formData)
                 props.setActiveButton('login')
                 toast.success("Registered successfully")
             } catch (error) {
@@ -114,7 +116,8 @@ function Signup(props) {
         let isValid = fields.every(field => error[field] === '')
         if (isValid) {
             try {
-                const res = await axios.post("http://localhost:5000/user/login", formData)
+                // const res = await axios.post("http://localhost:5000/user/login", formData)
+                const res = await authApi.loginUser(formData)
                 localStorage.setItem("token", res.data.jwtoken)
                 localStorage.setItem("user", res.data.user)
                 navigate('/dashboard')

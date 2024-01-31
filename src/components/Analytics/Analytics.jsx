@@ -7,10 +7,11 @@ import shareIcon from '../../assets/images/share.svg'
 
 import { Link } from 'react-router-dom'
 import DeleteQuizPopup from '../DeleteQuizPopup/DeleteQuizPopup'
-import axios from 'axios'
+// import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CreateQuestion from '../CreateQuestion/CreateQuestion'
+import quizApi from '../../api/quizApi'
 
 function Analytics() {
     const [deletePopup, setDeletePopup] = useState(false)
@@ -25,7 +26,12 @@ function Analytics() {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("http://localhost:5000/quiz", {
+                // const response = await axios.get("http://localhost:5000/quiz", {
+                //     headers: {
+                //         'createdby': user
+                //     }
+                // })
+                const response = await quizApi.getQuizs({
                     headers: {
                         'createdby': user
                     }

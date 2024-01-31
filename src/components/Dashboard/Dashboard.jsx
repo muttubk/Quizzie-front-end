@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Dashboard.module.css'
 import TrendingQuizCard from '../TrendingQuizCard/TrendingQuizCard'
-import axios from 'axios'
+// import axios from 'axios'
+import quizApi from '../../api/quizApi'
 
 function Dashboard() {
     const [user] = useState(localStorage.getItem("user"))
@@ -15,7 +16,13 @@ function Dashboard() {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get("http://localhost:5000/quiz", {
+                // const response = await axios.get("http://localhost:5000/quiz", {
+                //     headers: {
+                //         'createdby': user,
+                //         'sortcondition': JSON.stringify(sortCondition)
+                //     }
+                // })
+                const response = await quizApi.getQuizs({
                     headers: {
                         'createdby': user,
                         'sortcondition': JSON.stringify(sortCondition)
