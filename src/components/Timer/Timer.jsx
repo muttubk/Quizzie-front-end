@@ -6,8 +6,8 @@ const selectedTimerStyle = {
     color: "#fff"
 }
 
-function Timer({ setTimer }) {
-    const [state, setState] = useState('OFF')
+function Timer({ timer, setTimer }) {
+    const [state, setState] = useState(timer || "OFF")
     const handleTimer = (e) => {
         setState(e.target.value)
         setTimer(e.target.value)

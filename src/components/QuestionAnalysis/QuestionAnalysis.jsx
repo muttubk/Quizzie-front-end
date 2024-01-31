@@ -95,7 +95,7 @@ function QuestionAnalysis() {
                                     {
                                         Object.keys(question.options).map((option, idx) => (
                                             option !== "_id" &&
-                                            <p className={cx(styles.info, styles.option)}>
+                                            <p key={option} className={cx(styles.info, styles.option)}>
                                                 <span className={styles.value}>
                                                     {
                                                         question.submissionCount[option]

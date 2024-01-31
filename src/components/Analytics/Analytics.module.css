@@ -60,3 +60,16 @@
     color: #000;
     font-size: 0.7rem;
 }
+
+
+.editQuizContainer{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.81);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

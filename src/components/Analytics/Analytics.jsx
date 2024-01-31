@@ -10,6 +10,7 @@ import DeleteQuizPopup from '../DeleteQuizPopup/DeleteQuizPopup'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CreateQuestion from '../CreateQuestion/CreateQuestion'
 
 function Analytics() {
     const [deletePopup, setDeletePopup] = useState(false)
@@ -17,6 +18,9 @@ function Analytics() {
     const [user] = useState(localStorage.getItem("user"))
     const [quizs, setQuizs] = useState([])
     const [selectedQuiz, setSelectedQuiz] = useState('')
+
+    const [editQuizId, setEditQuizId] = useState('')
+    const [editQuizPopup, setEditQuizPopup] = useState(false)
 
     useEffect(() => {
         (async () => {
@@ -33,8 +37,10 @@ function Analytics() {
         })()
     }, [user, deletePopup])
 
-    const handleEditQuiz = () => {
-        console.log("edit quiz")
+    const handleEditQuiz = (e) => {
+        // console.log("edit quiz")
+        setEditQuizId(e.target.id)
+        setEditQuizPopup(true)
     }
     const handleDeleteQuiz = (e) => {
         setDeletePopup(true)
@@ -104,6 +110,12 @@ function Analytics() {
             {
                 deletePopup &&
                 <DeleteQuizPopup quizId={selectedQuiz} setDeletePopup={setDeletePopup} />
+            }
+            {
+                editQuizPopup &&
+                <div className={styles.editQuizContainer}>
+                    <CreateQuestion editQuizId={editQuizId} setEditQuizPopup={setEditQuizPopup} />
+                </div>
             }
             <ToastContainer />
         </>

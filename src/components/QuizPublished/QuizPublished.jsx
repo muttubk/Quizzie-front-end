@@ -17,7 +17,12 @@ function QuizPublished(props) {
         }
     }
     const handleCancel = () => {
-        props.setCreateQuizPage(false)
+        if (props.setEditQuizPopup) {
+            props.setEditQuizPopup(false)
+        }
+        if (props.setCreateQuizPage) {
+            props.setCreateQuizPage(false)
+        }
     }
 
     return (

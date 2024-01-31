@@ -20,10 +20,10 @@ function CreateQuiz(props) {
 
     // for show/hide create question pop up
     const [questionsPopup, setQuestionsPopup] = useState(false)
-    // show/hide quiz published popup
-    const [quizPublishedPopup, setQuizPublishedPopup] = useState(false)
-    // for quiz link
-    const [quizLink, setQuizLink] = useState('')
+    // // show/hide quiz published popup
+    // const [quizPublishedPopup, setQuizPublishedPopup] = useState(false)
+    // // for quiz link
+    // const [quizLink, setQuizLink] = useState('')
 
     // hide create quiz popup
     const handleCancel = () => {
@@ -90,17 +90,18 @@ function CreateQuiz(props) {
                     // quizName={quizData.quizName}
                     // quizType={quizData.quizType}
                     {...quizData}
-                    setQuizPublishedPopup={setQuizPublishedPopup}
-                    setQuizLink={setQuizLink}
+                    // setQuizPublishedPopup={setQuizPublishedPopup}
+                    // setQuizLink={setQuizLink}
+                    setCreateQuizPage={props.setCreateQuizPage}
                 />
             }
-            {
+            {/* {
                 quizPublishedPopup &&
                 <QuizPublished
                     setCreateQuizPage={props.setCreateQuizPage}
                     quizLink={quizLink}
                 />
-            }
+            } */}
         </>
     )
 }
