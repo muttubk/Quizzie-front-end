@@ -51,7 +51,13 @@ function Dashboard() {
                     <span className={styles.numberSpan}>{questionsCreated}</span> questions <br />Created
                 </div>
                 <div className={styles.impressions}>
-                    <span className={styles.numberSpan}>{totalImpressions}</span> Total <br />Impressions
+                    <span className={styles.numberSpan}>
+                        {
+                            totalImpressions < 1000 ?
+                                totalImpressions :
+                                `${(totalImpressions / 1000).toFixed(1)}K`
+                        }
+                    </span> Total <br />Impressions
                 </div>
             </div>
             <div className={styles.trendingQuizsContainer}>

@@ -86,7 +86,13 @@ function Analytics() {
                                             + new Date(quiz.createdAt).getFullYear()
                                         }
                                     </td>
-                                    <td>{quiz.impressions}</td>
+                                    <td>
+                                        {
+                                            quiz.impressions < 1000 ?
+                                                quiz.impressions :
+                                                `${(quiz.impressions / 1000).toFixed(1)}K`
+                                        }
+                                    </td>
                                     <td>
                                         <img id={quiz._id} className={styles.editQuiz} src={editIcon} alt="edit quiz"
                                             onClick={handleEditQuiz} />

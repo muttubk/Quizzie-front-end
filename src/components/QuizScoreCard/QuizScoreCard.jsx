@@ -15,7 +15,20 @@ function QuizScoreCard(props) {
                         </div>
                         <p className={styles.scoreContainer}>
                             Your Score is
-                            <span className={styles.score}> {props.correctAnswers}/{props.totalQuestions}</span>
+                            <span> </span>
+                            <span className={styles.score}>
+                                {
+                                    props.correctAnswers < 10 ?
+                                        `0${props.correctAnswers}` :
+                                        props.correctAnswers
+                                }
+                                /
+                                {
+                                    props.totalQuestions < 10 ?
+                                        `0${props.totalQuestions}` :
+                                        props.totalQuestions
+                                }
+                            </span>
                         </p>
                     </>
                     :

@@ -14,7 +14,11 @@ function TrendingQuizCard(props) {
                 </p>
                 <div className={styles.impressionsContainer}>
                     <p className={styles.impressions}>
-                        {props.impressions}
+                        {
+                            props.impressions < 1000 ?
+                                props.impressions :
+                                `${(props.impressions / 1000).toFixed(1)}K`
+                        }
                     </p>
                     <img src={eyesIcon} alt="" />
                 </div>

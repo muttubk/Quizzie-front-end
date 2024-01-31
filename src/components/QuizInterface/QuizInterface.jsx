@@ -158,11 +158,27 @@ function QuizInterface() {
                 <div className={styles.container}>
                     <div className={styles.numberAndTimeContainer}>
                         <p className={styles.questionNumber}>
-                            {currentQuestion + 1}/{questions.length}
+                            {
+                                currentQuestion + 1 < 10 ?
+                                    `0${currentQuestion + 1}` :
+                                    currentQuestion + 1
+                            }
+                            /
+                            {
+                                questions.length < 10 ?
+                                    `0${questions.length}` :
+                                    questions.length
+                            }
                         </p>
                         {
                             (!timer || timer !== "OFF") &&
-                            <p className={styles.time}>00:{remainingSeconds}</p>
+                            <p className={styles.time}>
+                                00:{
+                                    remainingSeconds < 10 ?
+                                        `0${remainingSeconds}` :
+                                        remainingSeconds
+                                }
+                            </p>
                         }
                     </div>
                     <p className={styles.question}>

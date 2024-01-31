@@ -56,7 +56,11 @@ function QuestionAnalysis() {
                         }
                     </p>
                     <p className={styles.quizImpressions}>
-                        Impressions : {quiz?.impressions}
+                        Impressions : {
+                            quiz?.impressions < 1000 ?
+                                quiz?.impressions :
+                                `${(quiz?.impressions / 1000).toFixed(1)}K`
+                        }
                     </p>
                 </div>
             </div>
